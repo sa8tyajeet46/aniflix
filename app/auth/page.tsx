@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "@/auth";
 import googleSignIn, { CredSignIn, RegisterUser } from "./actions";
 import { toast } from "sonner";
+import { FcGoogle } from "react-icons/fc";
+
 function Auth() {
   const router = useRouter();
   const [userName, setUserName] = useState("");
@@ -55,7 +57,7 @@ function Auth() {
   };
   return (
     <div className=" w-full h-full flex justify-center">
-      <div className="w-full lg:w-2/6 px-10 bg-black lg:opacity-85 text-white h-[450px] mt-24 rounded-lg pt-5">
+      <div className="w-full lg:w-[450px] px-10 bg-black lg:opacity-85 text-white h-[500px] mt-24 rounded-lg pt-5">
         <div className="text-3xl font-semibold">
           {variant === "register" ? "Sign Up" : "Sign In"}
         </div>
@@ -96,11 +98,12 @@ function Auth() {
           </Button>
 
           <Button
-            className="!bg-red-600 !hover:bg-red-700 text-lg font-semibold !mt-7"
+            className="bg-white text-black text-lg hover:bg-gray-200"
             onClick={(e) => {
               googleSignIN(e);
             }}
           >
+            <FcGoogle className="!w-6 !h-6" />
             Sign in with Google
           </Button>
         </form>

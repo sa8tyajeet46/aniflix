@@ -7,6 +7,13 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export function generateRandomProfile() {
+  if (typeof window !== "undefined") {
+    // Only access localStorage in the browser
+    const storedAvatar = localStorage.getItem("avatar");
+    if (storedAvatar) {
+      return storedAvatar;
+    }
+  }
   const num = Math.floor(Math.random() * 4);
 
   const profileArr = [

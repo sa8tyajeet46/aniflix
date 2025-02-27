@@ -19,6 +19,7 @@ export default function Home() {
     return <Loader />;
   }
   const profileImage = generateRandomProfile();
+  localStorage.setItem("avatar", profileImage);
 
   return (
     <div className="bg-black w-full h-screen flex flex-col justify-center items-center space-y-10">

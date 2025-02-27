@@ -5,11 +5,32 @@ import { prisma } from "@/lib/prisma";
 import { registerUserSchema } from "@/lib/zod";
 import bcrypt from "bcryptjs";
 import { ZodError } from "zod";
+import { AddFavourite, deleteFavourite } from "../api/FavouriteMovie";
 
 // For client-side component
 const googleSignIn = async () => {
   try {
     await signIn("google", { callbackUrl: "/" });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+export const addFavourite = async (movieId: string) => {
+  try {
+    const response = await AddFavourite(movieId);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const unFavourite = async (movieId: string) => {
+  try {
+    const response = await deleteFavourite(movieId);
+    return response;
   } catch (error) {
     console.log(error);
     throw error;

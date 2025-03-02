@@ -1,8 +1,10 @@
-import React from 'react'
-import Image from 'next/image'
+import React, { useCallback } from "react";
+import Image from "next/image";
 import { FaCirclePlay } from "react-icons/fa6";
-import FavouriteButton from './FavouriteButton';
+import FavouriteButton from "./FavouriteButton";
 import { useRouter } from "next/navigation";
+import useInfoModal from "@/hooks/useInfoModal";
+import { FaCircleChevronDown } from "react-icons/fa6";
 
 type MovieCardProps = {
   data: Record<string, any>;
@@ -10,6 +12,16 @@ type MovieCardProps = {
 };
 function MovieCard({ data, index }: MovieCardProps) {
   const router = useRouter();
+
+  const { openModal } = useInfoModal((state) => state);
+
+  const handleInfo = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      openModal(data?.id);
+    },
+    [openModal, data?.id]
+  );
   return (
     <div
       key={index}
@@ -38,6 +50,15 @@ function MovieCard({ data, index }: MovieCardProps) {
               <FaCirclePlay size={30} />
             </button>
             <FavouriteButton movieId={data?.id} />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleInfo(e);
+              }}
+              // className="flex flex-grow w-full"
+            >
+              <FaCircleChevronDown size={30} />
+            </button>
           </div>
           <div className="w-full flex text-green-500 font-semibold space-x-2">
             <div>New</div>
@@ -54,4 +75,4 @@ function MovieCard({ data, index }: MovieCardProps) {
   );
 }
 
-export default MovieCard
+export default MovieCard;

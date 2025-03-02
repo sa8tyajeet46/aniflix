@@ -7,7 +7,7 @@ type MovieListProps = {
 };
 
 function MovieList({ data, title }: MovieListProps) {
-  console.log(data);
+  
   if(!data) return null;
   if (Array.isArray(data) && data.length == 0) return null;
   return (

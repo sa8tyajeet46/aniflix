@@ -4,35 +4,33 @@ import { without } from "lodash";
 
 export const AddFavourite = async (movieId:string) => {
   try {
-    console.log(movieId);
+    
     const session = await auth();
 
     if (!session?.user?.email) {
       return Error("user not found");
     }
-    
 
-    const movie=await prisma.movie.findUnique({
-        where:{
-            id:movieId
-        }
+    const movie = await prisma.movie.findUnique({
+      where: {
+        id: movieId,
+      },
     });
-     if(!movie)
-     {
-        return Error("Invalid Id");
-     }
-      
-     const updatedUser=await prisma.user.update({
-        where:{
-            email:session?.user?.email || ""
+    if (!movie) {
+      return Error("Invalid Id");
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        email: session?.user?.email || "",
+      },
+      data: {
+        favoriteIds: {
+          push: movieId,
         },
-        data:{
-            favoriteIds:{
-                push:movieId
-            }
-        }
-     })
-     console.log(updatedUser)
+      },
+    });
+    
 
     
 

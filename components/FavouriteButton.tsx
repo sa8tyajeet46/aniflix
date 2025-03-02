@@ -14,7 +14,6 @@ function FavouriteButton({ movieId }: { movieId: string }) {
   const { data: favouites, mutate: mutateFav } = getFavourites();
 
   const isFavourite = user?.user?.favoriteIds?.includes(movieId);
-  // console.log(movieId,isFavourite,"fav")
 
   const toogleFavourites = useCallback(async () => {
     try {

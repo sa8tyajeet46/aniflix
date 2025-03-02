@@ -1,13 +1,24 @@
 "use client";
 import GetRandomMovie from "@/hooks/getRandomMovie";
+import useInfoModal from "@/hooks/useInfoModal";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useCallback } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { FaCirclePlay } from "react-icons/fa6";
 
 function Billboard() {
   const router = useRouter();
   const { data } = GetRandomMovie();
+
+  const { openModal } = useInfoModal((state) => state);
+
+  const handleInfo = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      openModal(data?.id);
+    },
+    [openModal, data?.id]
+  );
   return (
     <div className="text-white h-[56.25vw] relative ">
       <video
@@ -30,14 +41,18 @@ function Billboard() {
             className="px-2 py-0.5 bg-white text-black mt-1 md:mt-3 rounded-md text-normal md:text-xl crusor-pointer mr-2 flex space-x-2 items-center z-100"
             onClick={(e) => {
               e.preventDefault();
-              console.log("mf,mf;l,");
               router.push(`/watch/${data.id}`);
             }}
           >
             <FaCirclePlay />
             <span>play</span>
           </button>
-          <button className="px-2 py-0.5 bg-gray-400/50 mt-1 md:mt-3 rounded-md text-normal md:text-xl crusor-pointer flex space-x-2 items-center">
+          <button
+            onClick={(e) => {
+              handleInfo(e);
+            }}
+            className="px-2 py-0.5 bg-gray-400/50 mt-1 md:mt-3 rounded-md text-normal md:text-xl crusor-pointer flex space-x-2 items-center"
+          >
             <CiCircleInfo />
             <span>More Info</span>
           </button>

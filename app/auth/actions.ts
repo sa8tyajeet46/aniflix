@@ -12,17 +12,15 @@ const googleSignIn = async () => {
   try {
     await signIn("google", { callbackUrl: "/" });
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
 export const addFavourite = async (movieId: string) => {
   try {
     const response = await AddFavourite(movieId);
-    console.log(response);
+
     return response;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -32,7 +30,6 @@ export const unFavourite = async (movieId: string) => {
     const response = await deleteFavourite(movieId);
     return response;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -95,7 +92,6 @@ export const RegisterUser = async (
       const messages = error.errors
         .map((err) => `${err.path.join(".")}: ${err.message}`)
         .join(", ");
-      console.error("Validation Errors:", messages);
 
       throw new Error(`Validation failed: ${messages}`);
     }

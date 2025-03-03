@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials?.email,
+            email: String(credentials?.email),
           },
         });
 
@@ -32,7 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const isPasswordCorrect = await bcrypt.compare(
-          credentials.password,
+          String(credentials.password),
           user.hashedPassword
         );
 

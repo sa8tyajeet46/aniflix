@@ -33,7 +33,7 @@ function FavouriteButton({ movieId }: { movieId: string }) {
     } catch (error: any) {
       toast.error(error?.message || "Internal server Error");
     }
-  }, [user, mutate, mutateFav]);
+  }, [user, mutate, mutateFav, isFavourite, movieId]);
   return (
     <div
       onClick={(e) => {

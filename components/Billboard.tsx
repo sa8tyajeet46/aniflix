@@ -29,7 +29,7 @@ function Billboard() {
         autoPlay
         className="text-white w-full object-cover  h-[56.25vw] brightness-75 z-0 absolute"
       />
-      <div className="absolute w-full md:w-[40%] ml-4 mr-4 md:ml-16  top-[30%] md:top-[40%]">
+      <div className="absolute w-[90%] md:w-[40%] ml-4 mr-4 md:ml-16  top-[30%] md:top-[40%]">
         <p className="text-white text-xl font-bold md:text-3xl w-[50%] ">
           {data?.title}
         </p>

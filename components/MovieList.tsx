@@ -12,10 +12,12 @@ function MovieList({ data, title }: MovieListProps) {
   if (Array.isArray(data) && data.length == 0) return null;
   return (
     <div className="pb-12">
-      <div className=" w-full text-3xl font-bold text-white pb-6">{title}</div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className=" w-full sm:text-3xl text-2xl sm:font-bold font-semibold text-white pb-6">
+        {title}
+      </div>
+      <div className="grid sm:grid-cols-4 grid-cols-1 gap-2">
         {data.map((movie, i) => {
-          return <MovieCard index={i} data={movie} />;
+          return <MovieCard index={i} data={movie} key={i} />;
         })}
       </div>
     </div>

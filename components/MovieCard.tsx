@@ -5,6 +5,7 @@ import FavouriteButton from "./FavouriteButton";
 import { useRouter } from "next/navigation";
 import useInfoModal from "@/hooks/useInfoModal";
 import { FaCircleChevronDown } from "react-icons/fa6";
+import Link from "next/link";
 
 type MovieCardProps = {
   data: Record<string, any>;
@@ -25,21 +26,36 @@ function MovieCard({ data, index }: MovieCardProps) {
   return (
     <div
       key={index}
-      className="relative bg-zinc-800 h-[12vw] group overflow-visible rounded-md"
+      className="relative bg-zinc-800 sm:h-[12vw] h-[30vh] group overflow-visible rounded-md"
     >
+      <button
+        className="bg-transparent w-full h-full sm:hidden flex"
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("button clicked");
+          handleInfo(e);
+        }}
+      >
+        <Image
+          src={data?.thumbnailUrl}
+          alt="Movie ThumbNail"
+          className="h-[12vw] object-cover rounded-md cursor-pointer transition duration-200 delay-200 group-hover:opacity-90 sm:group-hover:opacity-0"
+          fill
+        />
+      </button>
       <Image
         src={data?.thumbnailUrl}
         alt="Movie ThumbNail"
-        className="h-[12vw] object-cover rounded-md cursor-pointer transition duration-200 delay-200 group-hover:opacity-90 sm:group-hover:opacity-0"
+        className="h-[12vw] object-cover rounded-md cursor-pointer transition duration-200 delay-200 group-hover:opacity-90 sm:group-hover:opacity-0 sm:flex hidden"
         fill
       />
-      <div className=" bg-zinc-600 w-full  group-hover:-translate-y-[6vw] group-hover:translate-x-[1vw]  sm:visible transition duration-200 delay-200 group-hover:scale-110 group-hover:flex flex-col  rounded-md absolute z-10 opacity-0 group-hover:opacity-100 hidden group-hover:visible cursor-pointer">
+      <div className="bg-zinc-600 w-full group-hover:-translate-y-[6vw] group-hover:translate-x-[1vw] transition duration-200 delay-200 group-hover:scale-100 group-hover:flex flex-col rounded-md absolute z-10 opacity-0 md:group-hover:opacity-100 hidden sm:hidden md:group-hover:flex cursor-pointer">
         <img
           src={data?.thumbnailUrl}
           alt="Movie ThumbNail"
           className="h-[12vw] object-cover rounded-md cursor-pointer"
         />
-        <div className=" flex flex-col text-white py-2 px-3 space-y-2">
+        <div className="flex flex-col text-white py-2 px-3 space-y-2">
           <div className="w-full flex space-x-2 flex-row items-center">
             <button
               onClick={(e) => {
@@ -55,7 +71,6 @@ function MovieCard({ data, index }: MovieCardProps) {
                 e.preventDefault();
                 handleInfo(e);
               }}
-              // className="flex flex-grow w-full"
             >
               <FaCircleChevronDown size={30} />
             </button>
@@ -68,7 +83,6 @@ function MovieCard({ data, index }: MovieCardProps) {
           </div>
           <div className="w-full flex">{data?.duration}</div>
           <div className="w-full flex">{data?.genre}</div>
-          <div></div>
         </div>
       </div>
     </div>

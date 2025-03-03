@@ -11,7 +11,7 @@ function layout({ children }: { children: React.ReactNode }) {
     <div
       className={`relative h-full w-full bg-[url('/images/hero.webp')] bg-cover bg-center bg-no-repeat`}
     >
-      <div className="absolute w-full h-full bg-black lg:opacity-50"></div>
+      {/* <div className="absolute w-full h-full bg-black lg:opacity-50"></div> */}
       <Link
         href="/"
         className={`absolute text-4xl text-white m-4 p-2 rounded-md bg-black ${robotoMono.className}`}

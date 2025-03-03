@@ -23,7 +23,9 @@ export default function Home() {
 
   return (
     <div className="bg-black w-full h-screen flex flex-col justify-center items-center space-y-10">
-      <span className="text-white text-4xl font-semibold">Who's Watching?</span>
+      <span className="text-white text-4xl font-semibold">
+        Who`&apos;`s Watching?
+      </span>
       <div className="flex-col flex space-y-7">
         <Link
           href="/dashboard"

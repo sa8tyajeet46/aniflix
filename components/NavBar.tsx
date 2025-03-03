@@ -15,19 +15,22 @@ const robotoMono = Roboto_Mono({
 function NavBar() {
   const [open, setOpen] = useState(false);
   const [browseOpen, setBrowseOpen] = useState(false);
-  const toggleOpen = useCallback((e) => {
+  const toggleOpen = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen((open) => !open);
   }, []);
 
-  const toggleBrowseOpen = useCallback((e) => {
-    e.preventDefault();
-    setBrowseOpen((browse) => !browse);
-  }, []);
+  const toggleBrowseOpen = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      setBrowseOpen((browse) => !browse);
+    },
+    []
+  );
   const profileGenerationFun = useCallback(generateRandomProfile, []);
   const profileImage = profileGenerationFun();
 
-  const handleSignout = async (e: any) => {
+  const handleSignout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       await LogoutUser();

@@ -1,15 +1,22 @@
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async (req: Request) => {
+export async function GET(req: Request) {
   try {
     const session = await auth();
 
     if (!session?.user?.email) {
-      return Error("user not found");
+      return Response.json({ error: "User not found" }, { status: 401 });
     }
 
     const count = await prisma.movie.count();
+
+    if (count === 0) {
+      return Response.json(
+        { error: "No movies found in database" },
+        { status: 404 }
+      );
+    }
 
     const randomInt = Math.floor(Math.random() * count);
 
@@ -20,6 +27,6 @@ export const GET = async (req: Request) => {
 
     return Response.json(randomMovie[0]);
   } catch (error) {
-    throw new Error("Internal server Error");
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
-};
+}

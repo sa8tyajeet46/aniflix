@@ -1,18 +1,18 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async () => {
+export async function GET() {
   try {
     const session = await auth();
 
     if (!session?.user?.email) {
-      return Error("user not found");
+      return Response.json({ error: "User not found" }, { status: 401 });
     }
 
     const movies = await prisma.movie.findMany();
 
     return Response.json(movies);
   } catch (error) {
-    throw new Error("Internal server Error");
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
-};
+}

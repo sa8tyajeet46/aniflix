@@ -11,34 +11,39 @@ type watchParams={
 
     }
 }
-function page({params}:watchParams){
-    const router=useRouter();
-    const {MovieId}=params;
-    const {data,error}=getMovie(MovieId?String(MovieId):"");
-    if(error){
+function Page({ params }: watchParams) {
+  const router = useRouter();
+  const { MovieId } = params;
+  const { data, error } = getMovie(MovieId ? String(MovieId) : "");
+  if (error) {
+    toast.error(error?.message || "Movie not found");
+    return null;
+  }
 
-        toast.error(error?.message || "Movie not found");
-        return null;
-    }
-    
-    return <div className="text-white h-screen w-screen">
-        <div className="flex space-x-3 px-12 py-3">
-            <button onClick={(e)=>{
-              e.preventDefault();
-              router.push("/dashboard")
-            }}>
-            <IoArrowBackOutline size={35} />
-            </button>
-            <div className="text-2xl">
-                Watching :
-            </div>
-            <div className="text-2xl font-semibold">
-              {data?.movie?.title}
-            </div>
+  return (
+    <div className="text-white h-screen w-screen">
+      <div className="flex space-x-3 sm:px-12 px-4 py-3 items-center">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/dashboard");
+          }}
+        >
+          <IoArrowBackOutline size={35} />
+        </button>
+        <div className="sm:text-2xl text-xl">Watching :</div>
+        <div className="sm:text-2xl text-xl font-semibold">
+          {data?.movie?.title}
         </div>
-        
-        <video src={data?.movie?.videoUrl} controls className="w-full h-[90vh]"></video>
+      </div>
+
+      <video
+        src={data?.movie?.videoUrl}
+        controls
+        className="w-full h-[90vh]"
+      ></video>
     </div>
+  );
 }
 
-export default page;
+export default Page;

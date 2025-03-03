@@ -1,32 +1,35 @@
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async (req: Request,{ params }: { params: { MovieId: string } }) => {
+export async function GET(
+  req: Request,
+  { params }: { params: { MovieId: string } }
+) {
   try {
     const session = await auth();
 
     if (!session?.user?.email) {
-      return Error("user not found");
+      return Response.json({ error: "User not found" }, { status: 401 });
     }
 
-    const {MovieId}=params;
-    if(!MovieId)
-    {
-        return Error("Invalid Movie id");
+    const { MovieId } = params;
+
+    if (!MovieId) {
+      return Response.json({ error: "Invalid Movie id" }, { status: 400 });
     }
 
     const movie = await prisma.movie.findUnique({
       where: {
-        id:MovieId
+        id: MovieId,
       },
     });
 
     if (!movie) {
-      return Error("movie not found");
+      return Response.json({ error: "Movie not found" }, { status: 404 });
     }
 
-    return Response.json({ movie: movie });
+    return Response.json({ movie });
   } catch (error) {
-    throw new Error("Internal server Error");
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
-};
+}

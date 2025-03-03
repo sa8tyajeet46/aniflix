@@ -1,26 +1,26 @@
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async (req: Request) => {
+export async function GET() {
   try {
     const session = await auth();
 
     if (!session?.user?.email) {
-      return Error("user not found");
+      return Response.json({ error: "User not found" }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
       where: {
-        email: session?.user?.email,
+        email: session.user.email,
       },
     });
 
     if (!user) {
-      return Error("user not found");
+      return Response.json({ error: "User not found" }, { status: 404 });
     }
 
-    return Response.json({ user: user });
+    return Response.json({ user });
   } catch (error) {
-    throw new Error("Internal server Error");
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
-};
+}

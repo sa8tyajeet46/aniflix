@@ -56,8 +56,8 @@ function Auth() {
     }
   };
   return (
-    <div className=" w-full h-full flex justify-center">
-      <div className="w-full lg:w-[450px] px-10 bg-black lg:opacity-85 text-white h-[500px] mt-24 rounded-lg pt-5">
+    <div className=" w-full h-full flex justify-center items-center">
+      <div className="w-full lg:w-[450px] sm:px-10 px-3 bg-black opacity-85 text-white h-[500px] mt-24 rounded-lg pt-5">
         <div className="text-3xl font-semibold">
           {variant === "register" ? "Sign Up" : "Sign In"}
         </div>

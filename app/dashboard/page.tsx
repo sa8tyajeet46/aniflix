@@ -12,7 +12,6 @@ function DashBoard() {
   const { data: movies = [], error, isLoading } = getAllMovies();
   const { data: FavouriteList = [] } = getFavourites();
   const { isOpen, closeModal, movieId } = useInfoModal((state) => state);
-  console.log(isOpen);
   return (
     <div className="w-full  bg-black flex flex-col ">
       <InfoModal
